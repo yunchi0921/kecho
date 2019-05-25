@@ -67,6 +67,7 @@ static int echo_server_worker(void *arg)
     allow_signal(SIGTERM);
 
     buf = kmalloc(BUF_SIZE, GFP_KERNEL);
+    memset(buf, 0, BUF_SIZE);
     if (!buf) {
         printk(KERN_ERR MODULE_NAME ": kmalloc error....\n");
         return -1;
@@ -87,9 +88,9 @@ static int echo_server_worker(void *arg)
             break;
         }
     }
-
-    res = get_request(sock, buf, BUF_SIZE - 1);
-    res = send_request(sock, buf, strlen(buf));
+    printk("What's going on?\n");
+    //  res = get_request(sock, buf, BUF_SIZE - 1);
+    //  res = send_request(sock, buf, strlen(buf));
 
     kernel_sock_shutdown(sock, SHUT_RDWR);
     sock_release(sock);
